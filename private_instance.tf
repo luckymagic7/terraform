@@ -67,7 +67,7 @@ resource "aws_instance" "prvi_c" {
   }
 }
 
-resource "null_resource" "install_nginx_a" {
+resource "null_resource" "install_nginx_app_a" {
   connection {
     bastion_host = "${aws_instance.bastion.public_ip}"
     bastion_user = "ec2-user"
@@ -81,12 +81,32 @@ resource "null_resource" "install_nginx_a" {
     inline = [
       "sudo yum update -y",
       "sudo amazon-linux-extras install nginx1.12 -y",
-      "sudo service nginx start"
+      "sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.ori",
+      "mkdir ~/bin"
     ]
   }
+  provisioner "file" {
+    source = "~/task"
+    destination = "~/bin/task"
+  }
+  provisioner "file" {
+    source = "~/nginx.conf"
+    destination = "~/nginx.conf"
+  }
+  provisioner "remote-exec" {
+    inline = [
+      "sudo mv ~/nginx.conf /etc/nginx/nginx.conf",
+      "sudo chown root.root /etc/nginx/nginx.conf",
+      "sudo service nginx start",
+      "chmod +x ~/bin/task",
+      "nohup ~/bin/task &",
+      "sleep 1"
+    ]
+  }
+  
 }
 
-resource "null_resource" "install_nginx_c" {
+resource "null_resource" "install_nginx_app_c" {
   connection {
     bastion_host = "${aws_instance.bastion.public_ip}"
     bastion_user = "ec2-user"
@@ -100,8 +120,27 @@ resource "null_resource" "install_nginx_c" {
     inline = [
       "sudo yum update -y",
       "sudo amazon-linux-extras install nginx1.12 -y",
-      "sudo service nginx start"
+      "sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.ori",
+      "mkdir ~/bin"
     ]
   }
+  provisioner "file" {
+    source = "~/task"
+    destination = "~/bin/task"
+  }
+  provisioner "file" {
+    source = "~/nginx.conf"
+    destination = "~/nginx.conf"
+  }
+  provisioner "remote-exec" {
+    inline = [
+      "sudo mv ~/nginx.conf /etc/nginx/nginx.conf",
+      "sudo chown root.root /etc/nginx/nginx.conf",
+      "sudo service nginx start",
+      "chmod +x ~/bin/task",
+      "nohup ~/bin/task &",
+      "sleep 1"
+    ]
+  }
+  
 }
-
