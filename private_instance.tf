@@ -86,11 +86,11 @@ resource "null_resource" "install_nginx_app_a" {
     ]
   }
   provisioner "file" {
-    source = "~/task"
-    destination = "~/bin/task"
+    source = "./source/main"
+    destination = "~/bin/main"
   }
   provisioner "file" {
-    source = "~/nginx.conf"
+    source = "./conf/nginx.conf"
     destination = "~/nginx.conf"
   }
   provisioner "remote-exec" {
@@ -98,8 +98,8 @@ resource "null_resource" "install_nginx_app_a" {
       "sudo mv ~/nginx.conf /etc/nginx/nginx.conf",
       "sudo chown root.root /etc/nginx/nginx.conf",
       "sudo service nginx start",
-      "chmod +x ~/bin/task",
-      "nohup ~/bin/task &",
+      "chmod +x ~/bin/main",
+      "nohup ~/bin/main &",
       "sleep 1"
     ]
   }
@@ -125,11 +125,11 @@ resource "null_resource" "install_nginx_app_c" {
     ]
   }
   provisioner "file" {
-    source = "~/task"
-    destination = "~/bin/task"
+    source = "./source/main"
+    destination = "~/bin/main"
   }
   provisioner "file" {
-    source = "~/nginx.conf"
+    source = "./conf/nginx.conf"
     destination = "~/nginx.conf"
   }
   provisioner "remote-exec" {
@@ -137,8 +137,8 @@ resource "null_resource" "install_nginx_app_c" {
       "sudo mv ~/nginx.conf /etc/nginx/nginx.conf",
       "sudo chown root.root /etc/nginx/nginx.conf",
       "sudo service nginx start",
-      "chmod +x ~/bin/task",
-      "nohup ~/bin/task &",
+      "chmod +x ~/bin/main",
+      "nohup ~/bin/main &",
       "sleep 1"
     ]
   }
