@@ -15,11 +15,11 @@
 ## 테라폼 실행
 - 소스 코드를 다운받아 `terraform init` 실행
   - terraform 작동에 필요한 provider를 파악하고 필요한 플러그인들을 다운로드 한다.
-- `terraform plan`으로 변경 될 사항들 체크
-- `terraform apply`로 인프라 생성
+- `exe.sh plan`으로 변경 될 사항들 체크
+- `exe.sh apply`로 인프라 생성
 
 ## 접속 테스트
 - 생성 완료 후, ALB의 DNS로 접근해서 Nginx 페이지가 뜨는지 확인한다.
 
 ## 삭제
-- `terraform destroy` 명령으로 모든 리소스를 삭제한다.
+- `exe.sh destroy` 명령으로 모든 리소스를 삭제한다.

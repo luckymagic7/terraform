@@ -1,12 +1,21 @@
 #!/usr/bin/env bash
 
-# terraform apply
-#terraform plan -out=tfplan
+if [ $# = 0 ]; then
+    echo "no arguments!"
+    echo "Usage: exe.sh plan | apply | destroy"
+fi
 
-# build go binary
-cd source
-go build main.go
-
-# terraform apply
-cd -
-terraform apply
+case "$1" in
+  "plan")
+      terraform plan
+    ;;
+  "apply")
+      cd source
+      go build main.go
+      cd -
+      terraform apply
+    ;;
+  "destroy")
+      terraform destroy
+    ;;
+esac
