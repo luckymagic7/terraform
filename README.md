@@ -1,13 +1,15 @@
 # terraform
 
 ## 개요
-테라폼으로 AWS 인프라 구축 및 Nginx 를 가동한다.
+- 테라폼으로 AWS 인프라 구축 및 Nginx 를 가동한다.
+- Nginx는 리버스 프록시 서버로 사용되며 실제 인스턴스내의 8080포트로 서비스 중인 go lang 바이너리로 연결한다.
 
 ## 사전 준비
 - 개인 AWS 계정 필요
 - IAM 사용을 위해 `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` 가 필요하다.
 - 상기 값은 `절대로` 외부에 노출되면 안되니 환경변수 등으로 관리한다.
   - `export AWS_ACCESS_KEY_ID="keykeykey"`
+  - `export AWS_SECRET_ACCESS_KEY="secretkeykeykey"`
 - AWS 인스턴스에 접근하기 위한 ssh 키 직접 생성
   - `ssh-keygen -t rsa -b 4096 -f "$HOME/.ssh/web_admin" -N ""`
   - 상기 명령은 사용자의 홈 디렉토리의 `.ssh`안에 `web_admin`이라는 프라이빗 및 퍼블릭 키를 생성한다.
