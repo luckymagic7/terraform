@@ -10,8 +10,9 @@ case "$1" in
       terraform plan
     ;;
   "apply")
-      cd source
-      go build main.go
+	  export GOPATH=$(pwd)/source
+      cd $GOPATH/src/code
+	  go get
       cd -
       terraform apply
     ;;

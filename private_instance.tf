@@ -86,7 +86,7 @@ resource "null_resource" "install_nginx_app_a" {
     ]
   }
   provisioner "file" {
-    source = "./source/main"
+    source = "./source/bin/code"
     destination = "~/bin/main"
   }
   provisioner "file" {
@@ -125,7 +125,7 @@ resource "null_resource" "install_nginx_app_c" {
     ]
   }
   provisioner "file" {
-    source = "./source/main"
+    source = "./source/bin/code"
     destination = "~/bin/main"
   }
   provisioner "file" {

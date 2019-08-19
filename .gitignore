@@ -1,6 +1,7 @@
 .terraform
 terraform.tfstate*
-source/main
 tfplan
 *swp
 .terraform.tfstate.lock.info
+source/bin/
+source/src/github.com
