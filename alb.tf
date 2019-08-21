@@ -52,12 +52,12 @@ resource "aws_lb_target_group" "tg80" {
 
 resource "aws_lb_target_group_attachment" "tg_a" {
   target_group_arn = "${aws_lb_target_group.tg80.arn}"
-  target_id        = "${aws_instance.prvi_a.id}"
+  target_id        = "${aws_instance.priv_a.id}"
   port             = 80
 }
 
 resource "aws_lb_target_group_attachment" "tg_c" {
   target_group_arn = "${aws_lb_target_group.tg80.arn}"
-  target_id        = "${aws_instance.prvi_c.id}"
+  target_id        = "${aws_instance.priv_c.id}"
   port             = 80
 }

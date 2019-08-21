@@ -25,7 +25,7 @@ resource "aws_security_group" "sg_for_private" {
   }
 }
 
-resource "aws_instance" "prvi_a" {
+resource "aws_instance" "priv_a" {
   ami = "ami-095ca789e0549777d"
   instance_type = "t2.micro"
   key_name = "${aws_key_pair.web_admin.key_name}"
@@ -46,7 +46,7 @@ resource "aws_instance" "prvi_a" {
   }
 }
 
-resource "aws_instance" "prvi_c" {
+resource "aws_instance" "priv_c" {
   ami = "ami-095ca789e0549777d"
   instance_type = "t2.micro"
   key_name = "${aws_key_pair.web_admin.key_name}"
@@ -65,82 +65,4 @@ resource "aws_instance" "prvi_c" {
   tags = {
     Name = "priv_c"
   }
-}
-
-resource "null_resource" "install_nginx_app_a" {
-  connection {
-    bastion_host = "${aws_instance.bastion.public_ip}"
-    bastion_user = "ec2-user"
-    bastion_private_key = "${file("~/.ssh/web_admin")}"
-    host = "${aws_instance.prvi_a.private_ip}"
-    user     = "ec2-user"
-    private_key = "${file("~/.ssh/web_admin")}"
-    agent = "false"
-  }
-  provisioner "remote-exec" {
-    inline = [
-      "sudo yum update -y",
-      "sudo amazon-linux-extras install nginx1.12 -y",
-      "sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.ori",
-      "mkdir ~/bin"
-    ]
-  }
-  provisioner "file" {
-    source = "./source/bin/code"
-    destination = "~/bin/main"
-  }
-  provisioner "file" {
-    source = "./conf/nginx.conf"
-    destination = "~/nginx.conf"
-  }
-  provisioner "remote-exec" {
-    inline = [
-      "sudo mv ~/nginx.conf /etc/nginx/nginx.conf",
-      "sudo chown root.root /etc/nginx/nginx.conf",
-      "sudo service nginx start",
-      "chmod +x ~/bin/main",
-      "nohup ~/bin/main &",
-      "sleep 1"
-    ]
-  }
-  
-}
-
-resource "null_resource" "install_nginx_app_c" {
-  connection {
-    bastion_host = "${aws_instance.bastion.public_ip}"
-    bastion_user = "ec2-user"
-    bastion_private_key = "${file("~/.ssh/web_admin")}"
-    host = "${aws_instance.prvi_c.private_ip}"
-    user     = "ec2-user"
-    private_key = "${file("~/.ssh/web_admin")}"
-    agent = "false"
-  }
-  provisioner "remote-exec" {
-    inline = [
-      "sudo yum update -y",
-      "sudo amazon-linux-extras install nginx1.12 -y",
-      "sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.ori",
-      "mkdir ~/bin"
-    ]
-  }
-  provisioner "file" {
-    source = "./source/bin/code"
-    destination = "~/bin/main"
-  }
-  provisioner "file" {
-    source = "./conf/nginx.conf"
-    destination = "~/nginx.conf"
-  }
-  provisioner "remote-exec" {
-    inline = [
-      "sudo mv ~/nginx.conf /etc/nginx/nginx.conf",
-      "sudo chown root.root /etc/nginx/nginx.conf",
-      "sudo service nginx start",
-      "chmod +x ~/bin/main",
-      "nohup ~/bin/main &",
-      "sleep 1"
-    ]
-  }
-  
 }
