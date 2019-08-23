@@ -26,3 +26,6 @@
 
 ## 삭제
 - `exe.sh destroy` 명령으로 모든 리소스를 삭제한다.
+
+## 인프라 구성도
+![image](https://user-images.githubusercontent.com/33619494/63571679-d71bf280-c5bb-11e9-9fe9-de617c4105e9.png)
